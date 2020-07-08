@@ -1,0 +1,15 @@
+project.ext{
+	RP_USER = 'huangzhzh'
+	RP_REPO = 'Replugin-onecloud'
+	RP_USERORG = 'onecloud' // unset this if you an't belong to any orgnization
+	//
+	RP_SITE = 'https://github.com/Huangzhzh/RePlugin-onecloud'
+	RP_DESC = 'RePlugin - A flexible, stable, easy-to-use Android Plug-in Framework'
+	RP_EMAIL = 'huangzhzh@163.com'
+	RP_GIT_URL = 'https://github.com/Huangzhzh/RePlugin-onecloud'
+	RP_LICENSES_URL = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+	RP_LICENSES_NAME = 'Apache-2.0'
+	//
+	RP_GROUP = 'com.qihoo360.replugin'
+	RP_VERSION = '2.3.3.1'
+}
