@@ -138,8 +138,8 @@ if ( pbBintayKey == null ){
     final def theGroup = group // group will be reset to 'upload'
     uploadArchives {
        repositories.mavenDeployer {
-           //repository(url: "file://${System.getenv('HOME')}/.m2/repository")
-		   repository(url: uri('file://d:/.m2/repository'))
+           def deployPath = file(pbDeployPath)
+		   repository(url: "file://${deployPath.absolutePath}")
            pom.groupId = theGroup
            pom.version = version
            pom.artifactId = pbArtifactId
@@ -147,22 +147,6 @@ if ( pbBintayKey == null ){
     }
 
     return
-}else{
-	apply plugin: 'maven'
-	
-	final def theGroup = group
-	final def theVersion = version
-	uploadArchives {
-		repositories.mavenDeployer {
-			def deployPath = file(pbDeployPath)
-			repository(url: "file://${deployPath.absolutePath}")
-			pom.project {
-				groupId theGroup
-				artifactId pbArtifactId
-				version theVersion
-			}
-		}
-	}
 }
 
 /////// publish to BINTRAY
