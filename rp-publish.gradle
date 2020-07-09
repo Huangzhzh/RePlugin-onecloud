@@ -45,6 +45,8 @@ group = getPropertyExt('RP_GROUP')
 version = getPropertyExt('RP_VERSION')
 
 def pbArtifactId = getPropertyExt('RP_ARTIFACT_ID')
+def pbDeployPath = getPropertyExt('GITHUB_REPO_PATH')
+
 
 pbUpdateVariables()
 
@@ -145,59 +147,74 @@ if ( pbBintayKey == null ){
     }
 
     return
+}else{
+	apply plugin: 'maven'
+	
+	final def theGroup = group
+	final def theVersion = version
+	uploadArchives {
+		repositories.mavenDeployer {
+			def deployPath = file(pbDeployPath)
+			repository(url: "file://${deployPath.absolutePath}")
+			pom.project {
+				groupId theGroup
+				artifactId pbArtifactId
+				version theVersion
+			}
+		}
+	}
 }
 
 /////// publish to BINTRAY
-
-apply plugin: 'com.jfrog.bintray'
-if (isAndroid()) {
-    apply plugin: 'com.github.dcendents.android-maven'
-}
-
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                name pbArtifactId
-                url pbSiteUrl
-				artifactId pbArtifactId
-                licenses {
-                    license {
-                        name pbLicense
-                        url pbLicenseUrl
-                    }
-                }
-                developers {
-                    developer {
-                        id pbUser
-                        name pbUserId
-                        email pbEmail
-                    }
-                }
-                scm {
-                    connection pbGitUrl
-                    developerConnection pbGitUrl
-                    url pbSiteUrl
-                }
-            }
-        }
-    }
-}
-
-bintray {
-    user = pbUser
-    key = pbBintayKey
-    configurations = ['archives']
-    pkg {
-        desc = pbDesc
-        repo = pbRepo
-        name = pbArtifactId
-        vcsUrl = pbGitUrl
-        userOrg = pbUserOrg
-        websiteUrl = pbSiteUrl
-        issueTrackerUrl = pbIssueUrl
-        licenses = [pbLicense]
-        publish = true
-    }
-}
+//apply plugin: 'com.jfrog.bintray'
+//if (isAndroid()) {
+//    apply plugin: 'com.github.dcendents.android-maven'
+//}
+//
+//install {
+//    repositories.mavenInstaller {
+//        pom {
+//            project {
+//                packaging 'aar'
+//                name pbArtifactId
+//                url pbSiteUrl
+//				artifactId pbArtifactId
+//                licenses {
+//                    license {
+//                        name pbLicense
+//                        url pbLicenseUrl
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id pbUser
+//                        name pbUserId
+//                        email pbEmail
+//                    }
+//                }
+//                scm {
+//                    connection pbGitUrl
+//                    developerConnection pbGitUrl
+//                    url pbSiteUrl
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//bintray {
+//    user = pbUser
+//    key = pbBintayKey
+//    configurations = ['archives']
+//    pkg {
+//        desc = pbDesc
+//        repo = pbRepo
+//        name = pbArtifactId
+//        vcsUrl = pbGitUrl
+//        userOrg = pbUserOrg
+//        websiteUrl = pbSiteUrl
+//        issueTrackerUrl = pbIssueUrl
+//        licenses = [pbLicense]
+//        publish = true
+//    }
+//}
