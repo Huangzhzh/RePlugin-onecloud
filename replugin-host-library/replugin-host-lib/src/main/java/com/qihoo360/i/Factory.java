@@ -324,10 +324,16 @@ public final class Factory {
      * Added by Jiongxuan Zhang
      */
     public static final boolean startActivityWithNoInjectCN(Context context, Intent intent, String plugin, String activity, int process) {
-        boolean result = sPluginManager.startActivity(context, intent, plugin, activity, process);
+        //插件Activity在打开前可以被自定义拦截
+        if(RePlugin.getConfig().getEventCallbacks().onStartActivityBefore(context,intent))
+        {
+            return false;
+        }else{
+            boolean result = sPluginManager.startActivity(context, intent, plugin, activity, process);
 
-        RePlugin.getConfig().getEventCallbacks().onStartActivityCompleted(plugin, activity, result);
-        return result;
+            RePlugin.getConfig().getEventCallbacks().onStartActivityCompleted(plugin, activity, result);
+            return result;
+        }
     }
 
     /**
@@ -400,6 +406,23 @@ public final class Factory {
      * @since 2.1.3
      */
     public static boolean startActivityForResult(Activity activity, Intent intent, int requestCode, Bundle options) {
-        return sPluginManager.startActivityForResult(activity, intent, requestCode, options);
+        //插件Activity在打开前可以被自定义拦截
+        if(RePlugin.getConfig().getEventCallbacks().startActivityForResultBefore(activity,intent,requestCode,options))
+        {
+            return false;
+        }else
+        {
+            boolean result = sPluginManager.startActivityForResult(activity, intent, requestCode, options);
+
+            ComponentName cn = intent.getComponent();
+            if (cn != null) {
+                String plugin = cn.getPackageName();
+                String activityCls = cn.getClassName();
+
+                RePlugin.getConfig().getEventCallbacks().onStartActivityCompleted(plugin, activityCls, result);
+            }
+
+            return result;
+        }
     }
 }

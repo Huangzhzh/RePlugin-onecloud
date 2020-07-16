@@ -19,6 +19,7 @@ package com.qihoo360.replugin;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.qihoo360.replugin.model.PluginInfo;
 
@@ -54,6 +55,31 @@ public class RePluginEventCallbacks {
      */
     public void onInstallPluginSucceed(PluginInfo info) {
         // Nothing
+    }
+
+    /**
+     * 在启动 Activity 前调用，可以被自定义调用拦截
+     * @param context
+     * @param intent
+     * @return 是否被拦截  true：调用被拦截，将终止后续的执行   false：未拦截，继续后续的执行
+     */
+    public boolean onStartActivityBefore(Context context, Intent intent) {
+        // Nothing
+        return false;
+    }
+
+    /**
+     * 在启动 startActivityForResult 前调用，可以被自定义调用拦截
+     * @param activity
+     * @param intent
+     * @param requestCode
+     * @param options
+     * @return 是否被拦截  true：调用被拦截，将终止后续的执行   false：未拦截，继续后续的执行
+     */
+    public boolean startActivityForResultBefore(Activity activity, Intent intent, int requestCode, Bundle options)
+    {
+        // Nothing
+        return false;
     }
 
     /**
