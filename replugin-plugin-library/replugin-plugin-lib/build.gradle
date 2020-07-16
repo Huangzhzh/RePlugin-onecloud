@@ -48,5 +48,7 @@ dependencies {
     compileOnly 'androidx.appcompat:appcompat:1.1.0'
 }
 
+project.ext.GITHUB_REPO_PATH = '..\\..\\repository'
 project.ext.RP_ARTIFACT_ID = 'replugin-plugin-lib'
+
 apply from: '../../rp-publish.gradle'

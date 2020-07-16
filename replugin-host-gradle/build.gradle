@@ -58,5 +58,7 @@ dependencies {
     compile 'net.dongliu:apk-parser:2.2.0'
 }
 
+project.ext.GITHUB_REPO_PATH = '..\\repository'
 project.ext.RP_ARTIFACT_ID = 'replugin-host-gradle'
+
 apply from: '../rp-publish.gradle'

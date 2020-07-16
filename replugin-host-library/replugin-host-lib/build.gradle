@@ -54,5 +54,7 @@ dependencies {
     compileOnly 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 }
 
+project.ext.GITHUB_REPO_PATH = '..\\..\\repository'
 project.ext.RP_ARTIFACT_ID = 'replugin-host-lib'
+
 apply from: '../../rp-publish.gradle'

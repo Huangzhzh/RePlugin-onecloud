@@ -128,5 +128,7 @@ publishing {
     }
 }
 
+project.ext.GITHUB_REPO_PATH = '..\\repository'
 project.ext.RP_ARTIFACT_ID = 'replugin-plugin-gradle'
+
 apply from: '../rp-publish.gradle'
