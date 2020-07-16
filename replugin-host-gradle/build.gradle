@@ -45,11 +45,6 @@ buildscript {
     }
 }
 
-configurations.all {
-	resolutionStrategy.cacheChangingModulesFor 0,'seconds'
-	resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
-}
-
 dependencies {
     compile 'com.android.tools.build:gradle:3.3.0' // >= 4.10.1
     compile 'org.json:json:20160212'
